@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,6 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-3j1&ht8po&*p_0j_wj6m^^z&xqge&gh#ea4emid%)wqg(!u!73'
+PONS_API_KEY = os.environ['PONS_API_KEY']
+OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'vocab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
