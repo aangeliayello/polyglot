@@ -37,3 +37,27 @@ def word_with_context_view(request):
         form = WordWithContext()
 
     return render(request, 'vocab/word_context.html', {'form': form})
+
+
+#### Angular
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import WordContextSerializer
+
+class WordWithContextView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = WordContextSerializer(data=request.data)
+        if serializer.is_valid():
+            word = serializer.validated_data['word']
+            context = serializer.validated_data['context']
+            # Your logic here, e.g., translation_definition
+            return Response({
+                'word': word,
+                'context': context,
+                'WordWithContextView': 'Working' # TODO: Remove this line
+            })
+        return Response(serializer.errors, status=400)
+    
+    def get(self, request, *args, **kwargs):
+        form = WordWithContext() # Your form logic for GET request
+        return Response({'form': form}) # Adjust as needed
