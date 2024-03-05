@@ -1,0 +1,25 @@
+<!-- word-context.component.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Word and Context</title>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden p-5">
+        <h2 class="text-xl font-semibold mb-4">Input Word and Context</h2>
+        <form (ngSubmit)="onSubmit()" class="space-y-4">
+            <div>
+                <label for="word" class="block text-sm font-medium text-gray-700">Word</label>
+                <input type="text" id="word" [(ngModel)]="model.word" name="word" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            
+            <div>
+                <label for="context" class="block text-sm font-medium text-gray-700">Context</label>
+                <textarea id="context" [(ngModel)]="model.context" name="context" required class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+            </div>
+            
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
