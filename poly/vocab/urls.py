@@ -1,6 +1,4 @@
 from django.urls import path
-
-from .views import WordWithContextView
 from . import views
 
 urlpatterns = [

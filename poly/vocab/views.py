@@ -52,7 +52,7 @@ def word_with_context_view(request):
     else:
         form = WordWithContext()
 
-    return render(request, 'vocab/word_context.html', {'form': form, 'translations': translations})
+    return render(request, 'vocab/word_context.html', {'form': form, 'translations': translations[::-1]})
 
 def save_translation_result(request):
     if request.method == 'POST':
