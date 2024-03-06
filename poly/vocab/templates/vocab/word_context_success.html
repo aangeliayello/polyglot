@@ -30,22 +30,17 @@
     <br>
     <form action="{% url 'save_translation_result' %}" method="post">
         {% csrf_token %}
-        <!-- Include any necessary data as hidden inputs -->
         <input type="hidden" name="word" value="{{ word }}">
         <input type="hidden" name="context" value="{{ context }}">
         <input type="hidden" name="translated_word" value="{{ translated_word }}">
         <input type="hidden" name="translated_context" value="{{ translated_context }}">
         <input type="hidden" name="word_class" value="{{ word_class }}">
-        <button type="submit">Save</button>
-        <button onclick="window.location.href='{% url 'word_with_context_form' %}';">Discard</button>
-        <button type="button"
+        <button type="submit" accesskey="s">Save</button>
+        <button accesskey="d" onclick="window.location.href='{% url 'word_with_context_form' %}';">Discard</button>
+        <button accesskey="p" type="button"
             onclick="window.open('https://en.pons.com/translate/german-english/{{ word }}?bidir=1', '_blank');">PONS</button>
     </form>
     <br>
-
-
-    <!-- Discard Button -->
-    <!-- Simply redirects to the form page; adjust the URL as needed -->
 </body>
 
 </html>
