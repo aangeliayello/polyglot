@@ -1,13 +1,51 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Word and Context</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
 </head>
+
 <body>
-    <p>Word: {{ word }}</p>
-    <p>Context: {{ context }}</p>
-    <p>Translated Word: {{ translated_word }}</p>
-    <p>Translated Context: {{ translated_context }}</p>
-    <p>Word Class: {{ word_class }}</p>
+    <hr>
+    <div class="translation-entry">
+        <div class="translation-key">Word:</div>
+        <div class="translation-value">{{ word }}</div>
+        <div class="translation-key">Context:</div>
+        <div class="translation-value">{{ context }}</div>
+    </div>
+    <hr class="soft-hr">
+    <div class="translation-entry">
+
+        <div class="translation-key">Trans-Word:</div>
+        <div class="translation-value">{{ translated_word }}</div>
+
+        <div class="translation-key">Trans-Context:</div>
+        <div class="translation-value">{{ translated_context }}</div>
+
+        <div class="translation-key">Word Class:</div>
+        <div class="translation-value">{{ word_class }}</div>
+    </div>
+    <br>
+    <form action="{% url 'save_translation_result' %}" method="post">
+        {% csrf_token %}
+        <!-- Include any necessary data as hidden inputs -->
+        <input type="hidden" name="word" value="{{ word }}">
+        <input type="hidden" name="context" value="{{ context }}">
+        <input type="hidden" name="translated_word" value="{{ translated_word }}">
+        <input type="hidden" name="translated_context" value="{{ translated_context }}">
+        <input type="hidden" name="word_class" value="{{ word_class }}">
+        <button type="submit">Save</button>
+        <button onclick="window.location.href='{% url 'word_with_context_form' %}';">Discard</button>
+        <button type="button"
+            onclick="window.open('https://en.pons.com/translate/german-english/{{ word }}?bidir=1', '_blank');">PONS</button>
+    </form>
+    <br>
+
+
+    <!-- Discard Button -->
+    <!-- Simply redirects to the form page; adjust the URL as needed -->
 </body>
+
 </html>

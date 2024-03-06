@@ -1,14 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Input Word and Context</title>
-</head>
-<body>
-    <h2>Input Word and Context</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html>
+{% extends "vocab/base_with_history_template.html" %}
+
+
+{% block content %}
+<h2>Input Word and Context2</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="button" onclick="insertChar('ä')">ä</button>
+    <button type="button" onclick="insertChar('ö')">ö</button>
+    <button type="button" onclick="insertChar('ü')">ü</button>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
+
+{% block history %}
+{% for translation in translations %}
+<hr>
+<div class="translation-entry">
+    <div class="translation-key">Word:</div>
+    <div class="translation-value">{{ translation.word }}</div>
+    <div class="translation-key">Context:</div>
+    <div class="translation-value">{{ translation.context }}</div>
+</div>
+<hr class="soft-hr">
+<div class="translation-entry">
+    
+    <div class="translation-key">Trans-Word:</div>
+    <div class="translation-value">{{ translation.translated_word }}</div>
+
+    <div class="translation-key">Trans-Context:</div>
+    <div class="translation-value">{{ translation.translated_context }}</div>
+
+    <!-- 
+    <div class="translation-key">Word Class:</div>
+    <div class="translation-value">{{ translation.word_class }}</div>
+    --> 
+</div>
+{% empty %}
+<p>No translations found.</p>
+{% endfor %}
+{% endblock %}

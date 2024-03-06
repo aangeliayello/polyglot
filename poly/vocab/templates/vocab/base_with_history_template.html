@@ -1,0 +1,24 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <title>{% block title %}Polyglot{% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+        <div class="content-section">
+            {% block content %}
+            <!-- Content  -->
+            {% endblock %}
+        </div>
+        <div class="history-section">
+            <h3>Translation History</h3>
+            {% block history %}
+            <!-- History  -->
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

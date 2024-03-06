@@ -1,0 +1,116 @@
+body {
+    font-family: 'Courier New', Courier, monospace, sans-serif;
+    color: #333;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #444;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.soft-hr {
+    border: none; 
+    height: 1px; 
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+button {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #03448b;
+}
+
+button[type="submit"] {
+    background-color: #ff69b4; 
+}
+button[type="submit"]:hover {
+    background-color: #f7268b;
+}
+
+button[type="save"] {
+    background-color: #ff69b4; 
+}
+button[type="save"]:hover {
+    background-color: #f7268b;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="text"],
+form textarea {
+    box-sizing: border-box; 
+    margin: 10px 0;
+    width: 100%; 
+    padding: 8px; 
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    display: flex;
+
+}
+.item {
+    margin-bottom: 10px;
+}
+.label {
+    font-weight: bold;
+}
+.content {
+    margin-left: 20px;
+}
+
+.form-section, .history-section {
+    flex: 1;
+}
+.history-section {
+        flex: 2;
+        overflow-y: auto;
+        padding-left: 20px;
+}
+.translation-entry {
+    display: grid;
+    grid-template-columns: max-content auto; 
+    align-items: start;
+    gap: 10px 20px; 
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+}   
+.translation-key {
+    font-weight: bold; 
+    text-align: left; 
+    padding-right: 10px; }
+.translation-value {
+    text-align: left; 
+}
