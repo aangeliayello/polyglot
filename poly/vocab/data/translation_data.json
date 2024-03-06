@@ -1,0 +1,67 @@
+{
+    "translations": [
+        {
+            "word": "word",
+            "context": "context",
+            "translated_word": "translation_definition_json[translated_word]",
+            "translated_context": "translation_definition_json[translated_context]",
+            "word_class": "translation_definition_json[word_class]"
+        },
+        {
+            "word": "word",
+            "context": "context",
+            "translated_word": "translation_definition_json[translated_word]",
+            "translated_context": "translation_definition_json[translated_context]",
+            "word_class": "translation_definition_json[word_class]"
+        },
+        {
+            "word": "word",
+            "context": "context",
+            "translated_word": "translation_definition_json[translated_word]",
+            "translated_context": "translation_definition_json[translated_context]",
+            "word_class": "translation_definition_json[word_class]"
+        },
+        {
+            "word": "word",
+            "context": "context",
+            "translated_word": "translation_definition_json[translated_word]",
+            "translated_context": "translation_definition_json[translated_context]",
+            "word_class": "translation_definition_json[word_class]"
+        },
+        {
+            "word": "word",
+            "context": "context",
+            "translated_word": "translation_definition_json[translated_word]",
+            "translated_context": "translation_definition_json[translated_context]",
+            "word_class": "translation_definition_json[word_class]"
+        },
+        {
+            "word": "word",
+            "context": "context",
+            "translated_word": "translation_definition_json[translated_word]",
+            "translated_context": "translation_definition_json[translated_context]",
+            "word_class": "translation_definition_json[word_class]"
+        },
+        {
+            "word": "word",
+            "context": "context",
+            "translated_word": "translation_definition_json[translated_word]",
+            "translated_context": "translation_definition_json[translated_context]",
+            "word_class": "translation_definition_json[word_class]"
+        },
+        {
+            "word": "word",
+            "context": "context",
+            "translated_word": "translation_definition_json[translated_word]",
+            "translated_context": "translation_definition_json[translated_context]",
+            "word_class": "translation_definition_json[word_class]"
+        },
+        {
+            "word": "entfernen",
+            "context": "entfernen-context",
+            "translated_word": "translated[entfernen]",
+            "translated_context": "translated[entfernen-context]",
+            "word_class": "word_class"
+        }
+    ]
+}
