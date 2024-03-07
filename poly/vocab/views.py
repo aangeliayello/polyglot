@@ -56,6 +56,15 @@ def word_with_context_view(request):
 
 def save_translation_result(request):
     if request.method == 'POST':
+        # Get translations history    
+        filename = 'vocab/data/translation_data.json'
+        try:
+            with open(filename, 'r') as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            data = {'translations': []}
+
+
         # Extracting the translation data from the POST request
         word = request.POST.get('word')
         context = request.POST.get('context')
@@ -65,21 +74,13 @@ def save_translation_result(request):
         
         # Building a dictionary to hold the data
         new_translation_data = {
+            'translation_id': len(data['translations']),
             'word': word,
             'context': context,
             'translated_word': translated_word,
             'translated_context': translated_context,
             'word_class': word_class
         }
-    
-        # Define the filename (you might want to use a more unique or dynamic naming scheme)
-        filename = 'vocab/data/translation_data.json'
-        
-        try:
-            with open(filename, 'r') as file:
-                data = json.load(file)
-        except FileNotFoundError:
-            data = {'translations': []}
         
         # Append the new translation to the translations list
         data['translations'].append(new_translation_data)
@@ -92,3 +93,4 @@ def save_translation_result(request):
     else:
         # If the request method is not POST, redirect to the form as well
         return redirect('word_with_context_form')
+    
