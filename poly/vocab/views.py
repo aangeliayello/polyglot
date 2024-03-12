@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .forms import WordWithContext
-from .translate.translate import query_dictionary, translate_and_define
+from .translate.openai import query_dictionary, translate_and_define
 from django.conf import settings
 from rest_framework.decorators import api_view
 import json
