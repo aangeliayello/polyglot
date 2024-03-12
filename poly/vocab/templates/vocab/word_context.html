@@ -1,28 +1,6 @@
 {% extends "vocab/base_with_history_template.html" %}
+{% load static %}
 {% block content %}
-<script>
-    var lastFocusedElement = null;
-
-    document.addEventListener('focus', function (e) {
-        if ((e.target.tagName === 'INPUT' && e.target.type === 'text') || e.target.tagName === 'TEXTAREA') {
-            lastFocusedElement = e.target;
-        }
-    }, true); 
-
-    // Function to insert character into the last focused text field or textarea
-    function insertChar(character) {
-        if (lastFocusedElement !== null) {
-            // Insert character at current cursor position in input field or textarea
-            const start = lastFocusedElement.selectionStart;
-            const end = lastFocusedElement.selectionEnd;
-            lastFocusedElement.value = lastFocusedElement.value.substring(0, start) + character + lastFocusedElement.value.substring(end);
-            // Move the cursor to right after the inserted character
-            lastFocusedElement.selectionStart = lastFocusedElement.selectionEnd = start + character.length;
-            // Return focus to the last focused element after inserting character
-            lastFocusedElement.focus();
-        }
-    }
-</script>
 <h2>Input Word and Context</h2>
 <form method="post">
     {% csrf_token %}
@@ -36,6 +14,20 @@
 {% endblock %}
 
 {% block history %}
+<script>
+    var translationsData = {{ translations|safe }};
+</script>
+<script src="{% static 'word_context.js' %}" defer></script>
+
+<div id="editModal" style="display:none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
+        <h2>Edit Translation</h2>
+        <textarea id="editData" style="width: 100%; height: 200px;"></textarea>
+        <button id="saveEditButton">Save</button>
+        <button onclick="closeEditModal()">Close</button>
+    </div>
+</div>
+
 {% for translation in translations %}
 <hr>
 <div class="translation-entry">
@@ -53,10 +45,15 @@
     <div class="translation-key">Trans-Context:</div>
     <div class="translation-value">{{ translation.translated_context }}</div>
 
+    {% if translation.notes %}
+    <div class="translation-key">Notes:</div>
+    <div class="translation-value">{{ translation.notes }}</div>
+    {% endif %}
     <!-- 
     <div class="translation-key">Word Class:</div>
     <div class="translation-value">{{ translation.word_class }}</div>
     -->
+    <button class="edit-btn" data-translation-id="{{ translation.translation_id }}">Edit</button>
 </div>
 {% empty %}
 <p>No translations found.</p>
