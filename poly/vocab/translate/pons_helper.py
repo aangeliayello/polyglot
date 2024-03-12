@@ -25,3 +25,25 @@ def query_dictionary(search_term, dictionary="deen", source_language=None, fuzzy
         return response.json()
     else:
         return f"Error: {response.status_code}"
+
+def get_word_info(hit):
+    roms = hit['roms']
+
+    if len(roms) != 1:
+        raise RuntimeError("Expected 'roms' to have exactly one element")
+
+    word_info = {
+        "headword":roms[0]["headword"],
+        "headword_full":roms[0]["headword_full"],
+        "wordclass":roms[0]["wordclass"],
+    }
+
+    return word_info
+
+def get_headword(translation):
+    translation_de = [item for item in translation if item['lang'] == 'de']
+    if len(translation_de) != 1:
+        raise RuntimeError("Expecting exactly one language to be 'de'")
+    word_infos = [get_word_info(hit) for hit in translation_de[0]["hits"]]
+
+    return word_infos
