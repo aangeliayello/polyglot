@@ -27,6 +27,20 @@
         <div class="translation-key">Word Class:</div>
         <div class="translation-value">{{ word_class }}</div>
     </div>
+    <hr>
+    <form id="definitionForm">
+        <label for="definitions">Choose a Definition:</label>
+        <select id="definitions" name="definitions">
+            {% for definition in definitions %}
+            <option value="{{ definition.headword }}">
+                <span><strong>{{ definition.headword|safe }}</strong></span><br>
+                <span>{{ definition.wordclass }}</span><br>
+                <span>{{ definition.headword_full|safe }}</span>
+            </option>            
+            {% endfor %}
+        </select>
+        <button type="button" onclick="selectDefinition()">Select</button>
+    </form>
     <br>
     <form action="{% url 'save_translation_result' %}" method="post">
         {% csrf_token %}
@@ -35,12 +49,24 @@
         <input type="hidden" name="translated_word" value="{{ translated_word }}">
         <input type="hidden" name="translated_context" value="{{ translated_context }}">
         <input type="hidden" name="word_class" value="{{ word_class }}">
+        <input type="hidden" id="selectedDefinition" name="selected_definition">
         <button type="submit" accesskey="s">Save</button>
         <button accesskey="d" onclick="window.location.href='{% url 'word_with_context_form' %}';">Discard</button>
         <button accesskey="p" type="button"
             onclick="window.open('https://en.pons.com/translate/german-english/{{ word }}?bidir=1', '_blank');">PONS</button>
     </form>
     <br>
+    <script>
+        function selectDefinition() {
+            const selectElement = document.getElementById('definitions');
+            const selectedDefinition = selectElement.options[selectElement.selectedIndex].value;
+            // Set the value of the hidden input field to the selected definition
+            document.getElementById('selectedDefinition').value = selectedDefinition;
+            console.log(selectElement)
+            console.log(selectedDefinition)
+        }
+    </script>
+
 </body>
 
 </html>

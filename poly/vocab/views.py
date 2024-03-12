@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .forms import WordWithContext
-from .translate.openai import query_dictionary, translate_and_define
+from .translate.openai_helper import translate_and_define
+from .translate.pons_helper import query_dictionary, get_headword
 from django.conf import settings
 from rest_framework.decorators import api_view
 import json
@@ -24,10 +25,13 @@ def word_with_context_view(request):
             word = form.cleaned_data['word']
             context = form.cleaned_data['context']
             if (settings.TESTING == False):
-                # API call to PONS dictionary/translation
+                # API call to OpenAI
                 translation_definition = translate_and_define(word, context)
                 translation_definition_json = json.loads(translation_definition)
-        
+
+                # API call to PONS Dictionary
+                translation = query_dictionary(word)
+                word_infos = get_headword(translation)
                 return render(request, 
                             'vocab/word_context_success.html', 
                             {
@@ -36,6 +40,7 @@ def word_with_context_view(request):
                                 'translated_word': translation_definition_json['translated_word'],
                                 'translated_context': translation_definition_json['translated_context'],
                                 'word_class': translation_definition_json['word_class'],
+                                'definitions':word_infos
                             }
                             )
             else:
@@ -71,6 +76,7 @@ def save_translation_result(request):
         translated_word = request.POST.get('translated_word')
         translated_context = request.POST.get('translated_context')
         word_class = request.POST.get('word_class')
+        selected_definition = request.POST.get('selected_definition')
         
         # Building a dictionary to hold the data
         new_translation_data = {
@@ -79,7 +85,8 @@ def save_translation_result(request):
             'context': context,
             'translated_word': translated_word,
             'translated_context': translated_context,
-            'word_class': word_class
+            'word_class': word_class,
+            'notes': selected_definition if selected_definition else None
         }
         
         # Append the new translation to the translations list
