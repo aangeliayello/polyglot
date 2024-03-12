@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .forms import WordWithContext
 from .translate.translate import query_dictionary, translate_and_define
 from django.conf import settings
@@ -94,3 +94,42 @@ def save_translation_result(request):
         # If the request method is not POST, redirect to the form as well
         return redirect('word_with_context_form')
     
+def find_translation_index(data, translation_id):
+    a = (translation_id >= 0)
+    b = (translation_id < len(data['translations']))
+    if (translation_id >= 0) and (translation_id < len(data['translations'])):
+        if data['translations'][translation_id]['translation_id'] == translation_id:
+                return translation_id
+        elif data['translations'][-(1 + translation_id)]['translation_id'] == translation_id:
+                return len(data['translations']) -(1 + translation_id)
+        
+    for index, translation in enumerate(data['translations']):
+        # Assuming each 'translation' is a dictionary that has an 'id' key
+        if translation.get('translation_id') == translation_id:
+            return index
+    return -1  # Return -1 if no match is found
+
+def update_translation(request, translation_id):
+    if request.method == 'POST':
+        filename = 'vocab/data/translation_data.json'
+        
+        try:
+            with open(filename, 'r') as file:
+                data = json.load(file)
+        except:
+            raise "File '" + filename + " not found."
+
+        translation_indx = find_translation_index(data, translation_id)
+
+        if translation_indx >= 0:
+            decoded_body = request.body.decode('utf-8')
+            edited_translation = json.loads(decoded_body)
+            data['translations'][translation_indx] = edited_translation
+            with open(filename, 'w') as file:
+                json.dump(data, file, indent=4)
+        else:
+            raise "Unexpected translation_id"
+        
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error'}, status=405)
